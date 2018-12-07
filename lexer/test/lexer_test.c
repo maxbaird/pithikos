@@ -6,11 +6,9 @@
 #include "../../token/token.h"
 #include "../lexer.h"
 
-typedef const char* string;
-
 typedef struct test{
-  TokenType expectedType;
-  string expectedLiteral;
+  TokenType   expectedType;
+  const char* expectedLiteral;
 }test_t;
 
 void load_file(const char *filename, char **result){

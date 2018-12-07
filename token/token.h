@@ -2,7 +2,7 @@
 #define __TOKEN_H__
 
 typedef const char* TokenType;
-typedef const char* string;
+typedef char string[128];
 
 typedef struct token{
   TokenType Type;

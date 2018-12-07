@@ -19,7 +19,12 @@ static void readChar(Lexer *l){
 }
 
 static Token newToken(TokenType tokenType, char ch){
-  Token token ={tokenType, &ch};
+  char str [3] = "\0";
+  str[0] = ch;
+
+  Token token;
+  token.Type = tokenType;
+  strcpy(token.Literal, str);
   return token;
 }
 //////////////////////////////////////////////////////////////
@@ -75,14 +80,9 @@ Token NextToken(Lexer *l){
       tok = newToken(RBRACE, l->ch);
       break;
     case 0:
-      tok.Literal = "";
+      strcpy(tok.Literal, "");
       tok.Type = END;
   }
   readChar(l);
   return tok;
 }
-
-
-
-
-

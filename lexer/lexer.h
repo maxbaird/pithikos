@@ -3,12 +3,10 @@
 
 #include "../token/token.h"
 
-typedef const char* string;
-
 typedef struct lexer{
- string   input;
- int      position;     // Current position in input (points to current char)
- int      readPosition; // Current reading position in input (after current char)
+ const char*    input;
+ int            position;     // Current position in input (points to current char)
+ int            readPosition; // Current reading position in input (after current char)
  char     ch;           // Current char under examination
 }Lexer;
 
