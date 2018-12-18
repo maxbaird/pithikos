@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "lexer.h"
 #include "../common/common.h"
 
@@ -27,6 +28,34 @@ static Token newToken(TokenType tokenType, char ch){
   token.Type = tokenType;
   strcpy(token.Literal, str);
   return token;
+}
+
+static bool isLetter(char ch){
+  return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_';
+}
+
+//Read a character and advance the lexer's position
+//until a non-letter-character is found.
+static void readIdentifier(Lexer* l, char* literal){
+  size_t position = l->position;
+  char str[PITHIKOS_BUFFER];
+  size_t n = 0;
+
+  while(n < (PITHIKOS_BUFFER+1)){
+    if(n == PITHIKOS_BUFFER){
+      snprintf(str, PITHIKOS_BUFFER, "Identifiers cannot be longer than %zu characters", PITHIKOS_BUFFER);
+      PITHIKOS_print(str,PITHIKOS_EROR);
+      exit(EXIT_FAILURE);
+    }
+
+    if(isLetter(l->ch)){
+     readChar(l);
+    }else{
+      break;
+    }
+    n++;
+  }
+  strncpy(literal, l->input+position, n);
 }
 //////////////////////////////////////////////////////////////
 
@@ -84,6 +113,14 @@ Token NextToken(Lexer *l){
     case 0:
       strcpy(tok.Literal, "");
       tok.Type = END;
+      break;
+    default:
+      if (isLetter(l->ch)){
+        readIdentifier(l, tok.Literal);
+        tok.Type = LookupIdent(tok.Literal);
+        return tok;
+      }
+      tok = newToken(ILLEGAL, l->ch);
   }
   readChar(l);
 

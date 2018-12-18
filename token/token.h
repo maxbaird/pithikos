@@ -1,13 +1,22 @@
 #ifndef __TOKEN_H__
 #define __TOKEN_H__
 
+#include "../common/common.h"
+
 typedef const char* TokenType;
-typedef char string[128];
+typedef char string[PITHIKOS_BUFFER];
 
 typedef struct token{
   TokenType Type;
   string Literal;
 }Token;
+
+typedef struct keyword{
+  char *kw;
+  TokenType type;
+}keyword_t;
+
+TokenType LookupIdent(char *ident);
 
 /*****************************************/
 /* Constants */
@@ -32,7 +41,7 @@ static const char* LBRACE          = "{";
 static const char* RBRACE          = "}";
 
 // Keywords
-static const char* FUNCTION      = "FUNCTION";
-static const char* LET           = "LET";
+#define FUNCTION       "FUNCTION"
+#define LET            "LET"
 
 #endif /* __TOKEN_H__ */
