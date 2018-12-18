@@ -3,6 +3,31 @@
 
 #include "../common/common.h"
 
+/* Constants */
+#define ILLEGAL          "ILLEGAL"
+#define END              "EOF"
+
+// Identifiers + literals
+#define IDENT            "IDENT"
+#define INT              "INT"
+
+//Operators
+#define ASSIGN           ""
+#define PLUS             "+"
+
+// Delimiters
+#define COMMA            ","
+#define SEMICOLON        ""
+
+#define LPAREN           "("
+#define RPAREN           ")"
+#define LBRACE           "{"
+#define RBRACE           "}"
+
+// Keywords
+#define FUNCTION       "FUNCTION"
+#define LET            "LET"
+
 typedef const char* TokenType;
 typedef char string[PITHIKOS_BUFFER];
 
@@ -18,30 +43,5 @@ typedef struct keyword{
 
 TokenType LookupIdent(char *ident);
 
-/*****************************************/
-/* Constants */
-static const char* ILLEGAL         = "ILLEGAL";
-static const char* END             = "EOF";
-
-// Identifiers + literals
-static const char* IDENT           = "IDENT";
-static const char* INT             = "INT";
-
-//Operators
-static const char* ASSIGN          = "=";
-static const char* PLUS            = "+";
-
-// Delimiters
-static const char* COMMA           = ",";
-static const char* SEMICOLON       = ";";
-
-static const char* LPAREN          = "(";
-static const char* RPAREN          = ")";
-static const char* LBRACE          = "{";
-static const char* RBRACE          = "}";
-
-// Keywords
-#define FUNCTION       "FUNCTION"
-#define LET            "LET"
 
 #endif /* __TOKEN_H__ */

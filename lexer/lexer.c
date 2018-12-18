@@ -31,7 +31,7 @@ static Token newToken(TokenType tokenType, char ch){
 }
 
 static bool isLetter(char ch){
-  return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_';
+  return ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') || ch == '_';
 }
 
 //Read a character and advance the lexer's position
@@ -43,7 +43,7 @@ static void readIdentifier(Lexer* l, char* literal){
 
   while(n < (PITHIKOS_BUFFER+1)){
     if(n == PITHIKOS_BUFFER){
-      snprintf(str, PITHIKOS_BUFFER, "Identifiers cannot be longer than %zu characters", PITHIKOS_BUFFER);
+      snprintf(str, PITHIKOS_BUFFER, "Identifiers cannot be longer than %d characters", PITHIKOS_BUFFER);
       PITHIKOS_print(str,PITHIKOS_EROR);
       exit(EXIT_FAILURE);
     }
