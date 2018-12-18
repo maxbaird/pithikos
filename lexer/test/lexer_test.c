@@ -67,7 +67,6 @@ void TestNextToken(){
   char *filename = "input.pit";
 	char *input = NULL;
   size_t i = 0;
-  bool no_err = true;
 
   load_file(filename, &input);
   //strip_spaces(input);
@@ -120,19 +119,22 @@ void TestNextToken(){
     Token tok = NextToken(l);
 
     if(strcmp(tok.Type, tests[i].expectedType) != 0){
-      fprintf(stderr, "tests[%zu] - tokentype wrong. expected=%s, got=%s\n",i, tests[i].expectedType, tok.Type);
-      no_err = false;
+      fprintf(stderr, "tests[%zu] - tokentype wrong. expected=\"%s\", got=\"%s\"\n",i, tests[i].expectedType, tok.Type);
+      break;
     }
 
     if(strcmp(tok.Literal, tests[i].expectedLiteral) != 0){
-      fprintf(stderr, "tests[%zu] - literal wrong. expected=%s, got=%s\n", i, tests[i].expectedLiteral, tok.Literal);
-      no_err = false;
+      fprintf(stderr, "tests[%zu] - literal wrong. expected=\"%s\", got=\"%s\"\n", i, tests[i].expectedLiteral, tok.Literal);
+      break;
     }
   }
 
-  if(no_err){
-    fprintf(stdout, "Passed\n");
+  if(i == testSize){
+    fprintf(stdout, "Pass\n");
     fflush(stdout);
+  }else{
+    fprintf(stderr, "Fail\n");
+    fflush(stderr);
   }
 
   FinalizeLexer(l);
