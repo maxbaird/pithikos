@@ -70,19 +70,47 @@ void TestNextToken(){
   bool no_err = true;
 
   load_file(filename, &input);
-  strip_spaces(input);
+  //strip_spaces(input);
 
   test_t tests[] = {
+    {LET, "let"},
+    {IDENT, "five"},
     {ASSIGN, "="},
-    {PLUS,   "+"},
+    {INT, "5"},
+    {SEMICOLON, ";"},
+    {LET, "let"},
+    {IDENT, "ten"},
+    {ASSIGN, "="},
+    {INT, "10"},
+    {SEMICOLON, ";"},
+    {LET, "let"},
+    {IDENT, "add"},
+    {ASSIGN, "="},
+    {FUNCTION, "fn"},
     {LPAREN, "("},
+    {IDENT, "x"},
+    {COMMA, ","},
+    {IDENT, "y"},
     {RPAREN, ")"},
     {LBRACE, "{"},
-    {RBRACE, "}"},
-    {COMMA,  ","},
+    {IDENT, "x"},
+    {PLUS, "+"},
+    {IDENT, "y"},
     {SEMICOLON, ";"},
-    {END, ""},
-  }; 
+    {RBRACE, "}"},
+    {SEMICOLON, ";"},
+    {LET, "let"},
+    {IDENT, "result"},
+    {ASSIGN, "="},
+    {IDENT, "add"},
+    {LPAREN, "("},
+    {IDENT, "five"},
+    {COMMA, ","},
+    {IDENT, "ten"},
+    {RPAREN, ")"},
+    {SEMICOLON, ";"},
+    {END, ""}
+  };
 
   Lexer *l = InitLexer(input);
 
@@ -107,6 +135,7 @@ void TestNextToken(){
     fflush(stdout);
   }
 
+  FinalizeLexer(l);
   free(input);
 }
 

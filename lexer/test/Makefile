@@ -6,7 +6,7 @@ CFLAGS      = -c -Wall -Wextra
 
 all : $(PROJECT)
 
-$(PROJECT) : lexer_test.o lexer.o token.o
+$(PROJECT) : lexer_test.o lexer.o token.o common.o
 	$(CC) $^ -o $@
 
 lexer_test.o : lexer_test.c
@@ -16,6 +16,9 @@ lexer.o : ../lexer.c
 	$(CC) $(CFLAGS) $< -o $@
 
 token.o : ../../token/token.c
+	$(CC) $(CFLAGS) $< -o $@
+
+common.o : ../../common/common.c
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:

@@ -5,9 +5,9 @@
 
 typedef struct lexer{
  const char*    input;
- int            position;     // Current position in input (points to current char)
- int            readPosition; // Current reading position in input (after current char)
- char     ch;           // Current char under examination
+ size_t         position;     // Current position in input (points to current char)
+ size_t         readPosition; // Current reading position in input (after current char)
+ char           ch;           // Current char under examination
 }Lexer;
 
 Lexer* InitLexer(const char *input);

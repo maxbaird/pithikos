@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "lexer.h"
+#include "../common/common.h"
 
 //This function gets the next character and advances
 //the position in the input string.
@@ -48,11 +49,12 @@ Lexer* InitLexer(const char *input){
 }
 
 void FinalizeLexer(Lexer *l){
-  free(l);
+  safeFree((void **)&l);
 }
 
 Token NextToken(Lexer *l){
-  Token tok;
+  char str[PITHIKOS_BUFFER];
+  Token tok = {NULL, ""};
 
   switch (l->ch) {
     case '=':
@@ -84,5 +86,13 @@ Token NextToken(Lexer *l){
       tok.Type = END;
   }
   readChar(l);
+
+  /* If type could not be determined */
+  if(tok.Type == NULL){
+    snprintf(str, PITHIKOS_BUFFER, "Unexpected token type: \"%c\"", l->ch);
+    PITHIKOS_print(str, PITHIKOS_EROR);
+    exit(EXIT_FAILURE);
+  }
+
   return tok;
 }
