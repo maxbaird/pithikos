@@ -131,11 +131,11 @@ void TestNextToken(){
 
   if(i == testSize){
     fprintf(stdout, "ok\n");
-    fflush(stdout);
   }else{
     fprintf(stderr, "FAIL\n");
-    fflush(stderr);
   }
+
+  fflush(stdout);
 
   FinalizeLexer(l);
   free(input);
