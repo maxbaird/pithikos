@@ -34,6 +34,10 @@ static bool isLetter(char ch){
   return ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') || ch == '_';
 }
 
+static bool isDigit(char ch){
+  return '0' <= ch && ch <= '9';
+}
+
 //Read a character and advance the lexer's position
 //until a non-letter-character is found.
 static void readIdentifier(Lexer* l, char* literal){
@@ -41,10 +45,10 @@ static void readIdentifier(Lexer* l, char* literal){
   char str[PITHIKOS_BUFFER];
   size_t n = 0;
 
-  while(n < (PITHIKOS_BUFFER+1)){
+  while(n < (PITHIKOS_BUFFER + 1)){
     if(n == PITHIKOS_BUFFER){
       snprintf(str, PITHIKOS_BUFFER, "Identifiers cannot be longer than %d characters", PITHIKOS_BUFFER);
-      PITHIKOS_print(str,PITHIKOS_EROR);
+      PITHIKOS_print(str, PITHIKOS_EROR);
       exit(EXIT_FAILURE);
     }
 
@@ -56,6 +60,38 @@ static void readIdentifier(Lexer* l, char* literal){
     n++;
   }
   strncpy(literal, l->input+position, n);
+}
+
+static void readNumber(Lexer *l, char *literal){
+  size_t position = l->position;
+  char str[PITHIKOS_BUFFER];
+  size_t n = 0;
+
+  while(n < (PITHIKOS_MAX_INT_LEN + 1)){
+    if(n == PITHIKOS_MAX_INT_LEN){
+      snprintf(str, PITHIKOS_BUFFER, "Integers cannot be greater than %d digits.", PITHIKOS_MAX_INT_LEN);
+      PITHIKOS_print(str, PITHIKOS_EROR);
+      exit(EXIT_FAILURE);
+    }
+
+    if(isDigit(l->ch)){
+      readChar(l);
+    }else{
+      break;
+    }
+    n++;
+  }
+  strncpy(literal, l->input+position, n);
+}
+
+static void skipWhitespace(Lexer *l){
+  for(;;){
+    if(l->ch == ' ' ||  l->ch == '\t' || l->ch == '\n' || l->ch == '\r'){
+      readChar(l);
+    }else{
+      break;
+    }
+  }
 }
 //////////////////////////////////////////////////////////////
 
@@ -84,6 +120,8 @@ void FinalizeLexer(Lexer *l){
 Token NextToken(Lexer *l){
   char str[PITHIKOS_BUFFER];
   Token tok = {NULL, ""};
+
+  skipWhitespace(l);
 
   switch (l->ch) {
     case '=':
@@ -118,6 +156,10 @@ Token NextToken(Lexer *l){
       if (isLetter(l->ch)){
         readIdentifier(l, tok.Literal);
         tok.Type = LookupIdent(tok.Literal);
+        return tok;
+      }else if(isDigit(l->ch)){
+        tok.Type = INT;
+        readNumber(l, tok.Literal);
         return tok;
       }
       tok = newToken(ILLEGAL, l->ch);

@@ -14,6 +14,7 @@
 #define RESET "\x1B[0m"
 
 #define PITHIKOS_BUFFER 256
+#define PITHIKOS_MAX_INT_LEN     5 /* No more than 5 digits needed for an unsigned int */
 
 #define PITHIKOS_INFO 1
 #define PITHIKOS_WARN 2

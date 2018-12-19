@@ -130,10 +130,10 @@ void TestNextToken(){
   }
 
   if(i == testSize){
-    fprintf(stdout, "Pass\n");
+    fprintf(stdout, "ok\n");
     fflush(stdout);
   }else{
-    fprintf(stderr, "Fail\n");
+    fprintf(stderr, "FAIL\n");
     fflush(stderr);
   }
 
