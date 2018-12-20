@@ -48,8 +48,7 @@ static void readIdentifier(Lexer* l, char* literal){
   while(n < (PITHIKOS_BUFFER + 1)){
     if(n == PITHIKOS_BUFFER){
       snprintf(str, PITHIKOS_BUFFER, "Identifiers cannot be longer than %d characters", PITHIKOS_BUFFER);
-      PITHIKOS_print(str, PITHIKOS_EROR);
-      exit(EXIT_FAILURE);
+      PITHIKOS_fatal(str);
     }
 
     if(isLetter(l->ch)){
@@ -70,8 +69,7 @@ static void readNumber(Lexer *l, char *literal){
   while(n < (PITHIKOS_MAX_INT_LEN + 1)){
     if(n == PITHIKOS_MAX_INT_LEN){
       snprintf(str, PITHIKOS_BUFFER, "Integers cannot be greater than %d digits.", PITHIKOS_MAX_INT_LEN);
-      PITHIKOS_print(str, PITHIKOS_EROR);
-      exit(EXIT_FAILURE);
+      PITHIKOS_fatal(str);
     }
 
     if(isDigit(l->ch)){
@@ -99,8 +97,7 @@ Lexer* InitLexer(const char *input){
   Lexer *l = malloc(sizeof(Lexer));
 
   if(l == NULL){
-    fprintf(stderr, "Failed to init lexer!\n");
-    exit(EXIT_FAILURE);
+    PITHIKOS_fatal("Failed to init lexer!");
   }
 
   l->input = input;
@@ -169,8 +166,7 @@ Token NextToken(Lexer *l){
   /* If type could not be determined */
   if(tok.Type == NULL){
     snprintf(str, PITHIKOS_BUFFER, "Unexpected token type: \"%c\"", l->ch);
-    PITHIKOS_print(str, PITHIKOS_EROR);
-    exit(EXIT_FAILURE);
+    PITHIKOS_fatal(str);
   }
 
   return tok;

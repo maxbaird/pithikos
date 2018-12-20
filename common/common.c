@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "common.h"
 
 void safeFree (void **ptr)
@@ -9,6 +10,13 @@ void safeFree (void **ptr)
     free(*ptr);
     *ptr = NULL;
   }
+}
+
+void PITHIKOS_fatal(const char *msg){
+  char str[PITHIKOS_BUFFER];
+  snprintf(str, PITHIKOS_BUFFER, "FATAL ERROR: %s", msg);
+  PITHIKOS_print(str, PITHIKOS_EROR);
+  exit(EXIT_FAILURE);
 }
 
 void PITHIKOS_print(const char *msg, unsigned short int priority)

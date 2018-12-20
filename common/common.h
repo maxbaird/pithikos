@@ -23,5 +23,6 @@
 
 void safeFree (void **ptr);
 void PITHIKOS_print(const char *msg, unsigned short int priority);
+void PITHIKOS_fatal(const char *msg);
 
 #endif /* __COMMON_H__ */
