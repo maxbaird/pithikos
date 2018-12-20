@@ -11,7 +11,7 @@ typedef struct test{
   const char* expectedLiteral;
 }test_t;
 
-void load_file(const char *filename, char **result){
+static void load_file(const char *filename, char **result){
   char c = '\0';
   unsigned long char_cnt = 0;
   unsigned long bufsize = 128;
@@ -49,27 +49,12 @@ void load_file(const char *filename, char **result){
   fclose(fp);
 }
 
-//Removes all spaces, tabs and newlines
-void strip_spaces(char *str){
-  char *i = str;
-  char *j = str;
-
-  while(*j != '\0'){
-    *i = *j++;
-    if(*i != ' ' && *i != '\t' && *i != '\n'){
-      i++;
-    }
-  }
-  *i = '\0';
-}
-
 void TestNextToken(){
   char *filename = "input.pit";
 	char *input = NULL;
   size_t i = 0;
 
   load_file(filename, &input);
-  //strip_spaces(input);
 
   test_t tests[] = {
     {LET, "let"},
@@ -119,6 +104,31 @@ void TestNextToken(){
 		{INT, "10"},
 		{GT, ">"},
 		{INT, "5"},
+		{SEMICOLON, ";"},
+ 		{IF, "if"},
+		{LPAREN, "("},
+		{INT, "5"},
+		{LT, "<"},
+		{INT, "10"},
+		{RPAREN, ")"},
+		{LBRACE, "{"},
+		{RETURN, "return"},
+		{TRUE, "true"},
+		{SEMICOLON, ";"},
+		{RBRACE, "}"},
+		{ELSE, "else"},
+		{LBRACE, "{"},
+		{RETURN, "return"},
+		{FALSE, "false"},
+ 		{SEMICOLON, ";"},
+		{RBRACE, "}"},
+    {INT, "10"},
+		{EQ, "=="},
+		{INT, "10"},
+		{SEMICOLON, ";"},
+		{INT, "10"},
+		{NOT_EQ, "!="},
+		{INT, "9"},
 		{SEMICOLON, ";"},
     {END, ""}
   };

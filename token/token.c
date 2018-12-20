@@ -5,7 +5,12 @@
 
 static keyword_t keywords[] = {
   {"fn", FUNCTION},
-  {"let", LET}
+  {"let", LET},
+  {"true", TRUE},
+  {"false", FALSE},
+  {"if", IF},
+  {"else", ELSE},
+  {"return", RETURN}
 };
 
 TokenType LookupIdent(char *ident){

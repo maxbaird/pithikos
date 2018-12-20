@@ -91,6 +91,14 @@ static void skipWhitespace(Lexer *l){
     }
   }
 }
+
+//Function to look ahead and get the next character without moving to it
+static char peekChar(Lexer *l){
+  if(l->readPosition >= strlen(l->input)){
+    return (char) 0;
+  }
+  return l->input[l->readPosition];
+}
 //////////////////////////////////////////////////////////////
 
 Lexer* InitLexer(const char *input){
@@ -122,7 +130,14 @@ Token NextToken(Lexer *l){
 
   switch (l->ch) {
     case '=':
-      tok = newToken(ASSIGN, l->ch);
+      if(peekChar(l) == '='){
+        char ch = l->ch;
+        readChar(l);
+        tok.Type = EQ;
+        snprintf(tok.Literal, PITHIKOS_BUFFER, "%c%c", ch, l->ch);
+      }else{
+        tok = newToken(ASSIGN, l->ch);
+      }
       break;
     case '+':
       tok = newToken(PLUS, l->ch);
@@ -131,7 +146,14 @@ Token NextToken(Lexer *l){
       tok = newToken(MINUS, l->ch);
       break;
     case '!':
-      tok = newToken(BANG, l->ch);
+      if(peekChar(l) == '='){
+        char ch = l->ch;
+        readChar(l);
+        tok.Type = NOT_EQ;
+        snprintf(tok.Literal, PITHIKOS_BUFFER, "%c%c", ch, l->ch);
+      }else{
+        tok = newToken(BANG, l->ch);
+      }
       break;
     case '/':
       tok = newToken(SLASH, l->ch);

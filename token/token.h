@@ -21,6 +21,8 @@
 
 #define LT               "<"
 #define GT               ">"
+#define EQ               "=="
+#define NOT_EQ           "!="
 
 // Delimiters
 #define COMMA            ","
@@ -34,6 +36,11 @@
 // Keywords
 #define FUNCTION       "FUNCTION"
 #define LET            "LET"
+#define TRUE           "TRUE"
+#define FALSE          "FALSE"
+#define IF             "IF"
+#define ELSE           "ELSE"
+#define RETURN         "RETURN"
 
 typedef const char* TokenType;
 typedef char string[PITHIKOS_BUFFER];
