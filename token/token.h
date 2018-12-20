@@ -12,8 +12,15 @@
 #define INT              "INT"
 
 //Operators
-#define ASSIGN           ""
+#define ASSIGN           "="
 #define PLUS             "+"
+#define MINUS            "-"
+#define BANG             "!"
+#define ASTERISK         "*"
+#define SLASH            "/"
+
+#define LT               "<"
+#define GT               ">"
 
 // Delimiters
 #define COMMA            ","

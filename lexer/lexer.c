@@ -124,6 +124,27 @@ Token NextToken(Lexer *l){
     case '=':
       tok = newToken(ASSIGN, l->ch);
       break;
+    case '+':
+      tok = newToken(PLUS, l->ch);
+      break;
+    case '-':
+      tok = newToken(MINUS, l->ch);
+      break;
+    case '!':
+      tok = newToken(BANG, l->ch);
+      break;
+    case '/':
+      tok = newToken(SLASH, l->ch);
+      break;
+    case '*':
+      tok = newToken(ASTERISK, l->ch);
+      break;
+    case '<':
+      tok = newToken(LT, l->ch);
+      break;
+    case '>':
+      tok = newToken(GT, l->ch);
+      break;
     case ';':
       tok = newToken(SEMICOLON, l->ch);
       break;
@@ -135,9 +156,6 @@ Token NextToken(Lexer *l){
       break;
     case ',':
       tok = newToken(COMMA, l->ch);
-      break;
-    case '+':
-      tok = newToken(PLUS, l->ch);
       break;
     case '{':
       tok = newToken(LBRACE, l->ch);

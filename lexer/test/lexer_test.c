@@ -108,6 +108,18 @@ void TestNextToken(){
     {IDENT, "ten"},
     {RPAREN, ")"},
     {SEMICOLON, ";"},
+    {BANG, "!"},
+		{MINUS, "-"},
+		{SLASH, "/"},
+		{ASTERISK, "*"},
+		{INT, "5"},
+		{SEMICOLON, ";"},
+		{INT, "5"},
+		{LT, "<"},
+		{INT, "10"},
+		{GT, ">"},
+		{INT, "5"},
+		{SEMICOLON, ";"},
     {END, ""}
   };
 
