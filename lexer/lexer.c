@@ -99,6 +99,23 @@ static char peekChar(Lexer *l){
   }
   return l->input[l->readPosition];
 }
+
+//Looks ahead to determine if this is a two character token
+//c - the character to look ahead for
+//t1 - the type of token if c IS NOT found
+//t2 - the type of the token if c is found
+static Token makeTwoCharToken(Lexer *l, char c, TokenType t1, TokenType t2){
+  Token tok = {NULL, ""};
+  if(peekChar(l) == c){
+    char ch = l->ch;
+    readChar(l);
+    tok.Type = t2;
+    snprintf(tok.Literal, PITHIKOS_BUFFER, "%c%c", ch, l->ch);
+  }else{
+    tok = newToken(t1, l->ch);
+  }
+  return tok;
+}
 //////////////////////////////////////////////////////////////
 
 Lexer* InitLexer(const char *input){
@@ -130,14 +147,7 @@ Token NextToken(Lexer *l){
 
   switch (l->ch) {
     case '=':
-      if(peekChar(l) == '='){
-        char ch = l->ch;
-        readChar(l);
-        tok.Type = EQ;
-        snprintf(tok.Literal, PITHIKOS_BUFFER, "%c%c", ch, l->ch);
-      }else{
-        tok = newToken(ASSIGN, l->ch);
-      }
+      tok = makeTwoCharToken(l, '=', ASSIGN, EQ);
       break;
     case '+':
       tok = newToken(PLUS, l->ch);
@@ -146,14 +156,7 @@ Token NextToken(Lexer *l){
       tok = newToken(MINUS, l->ch);
       break;
     case '!':
-      if(peekChar(l) == '='){
-        char ch = l->ch;
-        readChar(l);
-        tok.Type = NOT_EQ;
-        snprintf(tok.Literal, PITHIKOS_BUFFER, "%c%c", ch, l->ch);
-      }else{
-        tok = newToken(BANG, l->ch);
-      }
+      tok = makeTwoCharToken(l, '=', BANG, NOT_EQ);
       break;
     case '/':
       tok = newToken(SLASH, l->ch);
