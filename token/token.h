@@ -26,7 +26,7 @@
 
 // Delimiters
 #define COMMA            ","
-#define SEMICOLON        ""
+#define SEMICOLON        ";"
 
 #define LPAREN           "("
 #define RPAREN           ")"
