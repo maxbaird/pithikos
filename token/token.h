@@ -43,7 +43,6 @@
 #define RETURN         "RETURN"
 
 typedef const char* TokenType;
-typedef char string[PITHIKOS_BUFFER];
 
 typedef struct token{
   TokenType Type;

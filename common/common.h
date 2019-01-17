@@ -21,6 +21,8 @@
 #define PITHIKOS_EROR 3
 #define PITHIKOS_DBUG 4
 
+typedef char string[PITHIKOS_BUFFER];
+
 void safeFree (void **ptr);
 void PITHIKOS_print(const char *msg, unsigned short int priority);
 void PITHIKOS_fatal(const char *msg);
